@@ -30,3 +30,24 @@ const questions = [
         default: 'White',
     },
 ];
+
+function writeToFile(fileName, data) {
+    fs.writeFile(fileName, data, 'utf8', (err) => {
+        if (err) {
+            console.error('Error writing to file:', err);
+        } else {
+            console.log('Generated ' + fileName);
+        }
+    });
+};
+
+
+function init () {
+    inquirer.prompt(questions)
+    .then (response => {
+        const fileTBG = renderSVG(response);
+        writeToFile(outputFileName, fileTBG);
+    })
+}
+
+init();
